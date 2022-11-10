@@ -16,10 +16,23 @@ async function app(yargsObject) {
         // code for read
     } else if (yargsObject.update) {
         console.log("Entering Update");
-        // code for update
+        // OPTION 1
+        // --------
+        // const searchObj = new Movie(yargsObject.title,yargsObject.actor);
+        // const updateObj = { actor : yargsObject.newActor };
+        // await searchObj.update(movieCollection,updateObj);
+        // OPTION 2
+        // --------
+        await movieCollection.updateOne({title: yargsObject.title}, {$set: {actor: yargsObject.actor}});
     } else if (yargsObject.delete) {
         console.log("Entering Delete");
-        // code for delete
+        // OPTION 1
+        // --------
+        // const deleteObject = new Movie(yargsObject.title, yargsObject.actor );
+        // await deleteObject.delete(movieCollection);
+        // OPTION 2
+        // --------
+        await movieCollection.deleteOne({title: yargsObject.title});
     } else {
         console.log("Command not recognised!");
     };
